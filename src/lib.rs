@@ -12,7 +12,7 @@ pub struct Grid {
 
 impl Grid {
     pub fn new() -> Self {
-        let mut gg: Grid =  Grid {
+        let gg: Grid =  Grid {
             cells: [[0; 4]; 4],
             last_seen: None,
             move_count: 0,
@@ -21,9 +21,9 @@ impl Grid {
             game_over: false,
         };
 
-        gg.fill_cell(0, 0, 2);
-        gg.fill_cell(1, 1, 2);
-        gg.fill_cell(1, 2, 2);
+        // gg.fill_cell(0, 0, 2);
+        // gg.fill_cell(1, 1, 2);
+        // gg.fill_cell(1, 2, 2);
 
         return gg
     }
@@ -78,17 +78,17 @@ impl Grid {
 
     pub fn step(&mut self) {
         // Implement the logic for a single step in the game
-        // if let Some((row, col)) = self.pick_random_empty_cell() {
-        //     let mut rng = rand::thread_rng();
-        //     let value = if rng.gen_bool(0.9) { 2 } else { 4 }; // oh my god it knows 2048
-        //     self.fill_cell(row, col, value);
-        //     self.last_seen = Some((row, col));
-        // } else {
-        //     self.game_over = true;
-        //     if self.score > self.high_score {
-        //         self.high_score = self.score;
-        //     }
-        // }
+        if let Some((row, col)) = self.pick_random_empty_cell() {
+            let mut rng = rand::thread_rng();
+            let value = if rng.gen_bool(0.9) { 2 } else { 4 }; // oh my god it knows 2048
+            self.fill_cell(row, col, value);
+            self.last_seen = Some((row, col));
+        } else {
+            self.game_over = true;
+            if self.score > self.high_score {
+                self.high_score = self.score;
+            }
+        }
 
         self.move_count += 1;
 
